@@ -1,0 +1,9 @@
+#!/bin/bash
+title="test title"
+frontend="frontend"
+for i in content/*; do
+if [[ -e "$i" ]]; then
+source themes/default/theme
+makeContent > $frontend/$(basename $i).html
+fi
+done

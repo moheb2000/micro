@@ -1,0 +1,74 @@
+#!/bin/bash
+
+
+# Get title for website
+while [[ -z "$title" ]]; do
+	read -p "Please enter your site title -> " title
+	if [[ -z "$title" ]]; then
+		echo "Please enter your title"
+	fi
+done
+
+
+# Get a directory for website building
+read -p "Please enter build address(If you're not sure just click enter) -> " frontend
+if [[ -z "$frontend" ]]; then
+	frontend="frontend"
+	mkdir "$frontend"
+fi
+
+
+# Create necessary directories
+mkdir themes content core themes/default themes/default/css themes/default/js plugins
+
+
+
+
+
+makeTheme () {
+	cat <<- _TOKEN_
+	makeContent () {
+	cat <<- _ECE_
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title>\$title</title>
+		</head>
+		<body>
+			<header>
+				<h1>\$title</h1>
+				<nav>
+					<ul>
+						\$(for j in content/*; do echo "<li>\$(basename \$j)</li>"; done)
+					</ul>
+				</nav>
+			</header>
+			<div>
+				\$(source \$i)
+			</div>
+			<footer>
+			</footer>
+		</body>
+	</html>
+	_ECE_
+	}
+	_TOKEN_
+}
+makeTheme > themes/default/theme
+
+
+makeBuilder () {
+	cat <<- _TOKEN_
+	#!/bin/bash
+	title="$title"
+	frontend="$frontend"
+	for i in content/*; do
+		if [[ -e "\$i" ]]; then
+		source themes/default/theme
+		makeContent > \$frontend/\$(basename \$i).html
+		fi
+	done
+	_TOKEN_
+}
+
+makeBuilder > builder && chmod 755 builder && ./builder

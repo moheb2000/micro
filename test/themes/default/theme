@@ -1,0 +1,25 @@
+makeContent () {
+cat <<- _ECE_
+<!DOCTYPE html>
+<html>
+<head>
+<title>$title</title>
+</head>
+<body>
+<header>
+<h1>$title</h1>
+<nav>
+<ul>
+$(for j in content/*; do echo "<li>$(basename $j)</li>"; done)
+</ul>
+</nav>
+</header>
+<div>
+$(source $i)
+</div>
+<footer>
+</footer>
+</body>
+</html>
+_ECE_
+}
