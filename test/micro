@@ -1,6 +1,13 @@
 #!/bin/bash
 
 
+# micro is a static site builder that written with shell script and generally maked for linux operating systems
+# LISENCE MIT 2020 Mohammad Ebrahimi
+# this is a beta version for developing and should not use for important tasks
+# github respiratory: https://github.com/moheb2000/micro
+
+
+
 # Get title for website
 while [[ -z "$title" ]]; do
 	read -p "Please enter your site title -> " title
@@ -22,9 +29,7 @@ fi
 mkdir themes content core themes/default themes/default/css themes/default/js plugins
 
 
-
-
-
+# This function creates theme file for default theme
 makeTheme () {
 	cat <<- _TOKEN_
 	makeContent () {
@@ -54,15 +59,24 @@ makeTheme () {
 	}
 	_TOKEN_
 }
+
+# Save makeTheme in themes/default
 makeTheme > themes/default/theme
 
 
+# Creates builder shell script
 makeBuilder () {
 	cat <<- _TOKEN_
 	#!/bin/bash
-	title="$title"
-	frontend="$frontend"
-	theme="default"
+
+
+	# Define variables for configuration
+	title="$title" # This is your site title
+	frontend="$frontend" # This is your building directory
+	theme="default" # This is your theme name in themes directory
+
+
+	# Copy your theme content except theme file in building directory
 	for h in themes/\$theme/*; do
 		if [[ -e "\$h" ]]; then
 			if [[ "\$h" != "themes/\$theme/theme" ]]; then
@@ -70,10 +84,14 @@ makeBuilder () {
 			fi
 		fi
 	done
+
+
+	# Make your site pages
 	for i in content/*/*; do
 		if [[ -e "\$i" ]]; then
 			source \$i
 			source themes/\$theme/theme
+			# creat index.html from home file in contents
 			if [[ "\$(basename \$i)" = "home" ]]; then
 				makeContent > \$frontend/index.html
 			else
@@ -84,4 +102,5 @@ makeBuilder () {
 	_TOKEN_
 }
 
+# Save builder and make it executable and run it for the first time
 makeBuilder > builder && chmod 755 builder && ./builder

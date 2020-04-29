@@ -1,7 +1,13 @@
 #!/bin/bash
-title="micro"
-frontend="frontend"
-theme="default"
+
+
+# Define variables for configuration
+title="micro" # This is your site title
+frontend="frontend" # This is your building directory
+theme="default" # This is your theme name in themes directory
+
+
+# Copy your theme content except theme file in building directory
 for h in themes/$theme/*; do
 if [[ -e "$h" ]]; then
 if [[ "$h" != "themes/$theme/theme" ]]; then
@@ -9,10 +15,14 @@ cp -r $h $frontend
 fi
 fi
 done
+
+
+# Make your site pages
 for i in content/*/*; do
 if [[ -e "$i" ]]; then
 source $i
 source themes/$theme/theme
+# creat index.html from home file in contents
 if [[ "$(basename $i)" = "home" ]]; then
 makeContent > $frontend/index.html
 else
