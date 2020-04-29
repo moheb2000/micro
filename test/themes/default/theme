@@ -15,7 +15,7 @@ $(for j in content/*; do echo "<li>$(basename $j)</li>"; done)
 </nav>
 </header>
 <div>
-$(source $i)
+$content
 </div>
 <footer>
 </footer>

@@ -44,7 +44,7 @@ makeTheme () {
 				</nav>
 			</header>
 			<div>
-				\$(source \$i)
+				\$content
 			</div>
 			<footer>
 			</footer>
@@ -64,6 +64,7 @@ makeBuilder () {
 	frontend="$frontend"
 	for i in content/*; do
 		if [[ -e "\$i" ]]; then
+		source \$i
 		source themes/default/theme
 		makeContent > \$frontend/\$(basename \$i).html
 		fi
