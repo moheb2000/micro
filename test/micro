@@ -39,7 +39,7 @@ makeTheme () {
 				<h1>\$title</h1>
 				<nav>
 					<ul>
-						\$(for j in content/*; do echo "<li>\$(basename \$j)</li>"; done)
+						\$(for j in content/*/*; do echo "<li>\$(basename \$j)</li>"; done)
 					</ul>
 				</nav>
 			</header>
@@ -62,11 +62,23 @@ makeBuilder () {
 	#!/bin/bash
 	title="$title"
 	frontend="$frontend"
-	for i in content/*; do
+	theme="default"
+	for h in themes/\$theme/*; do
+		if [[ -e "\$h" ]]; then
+			if [[ "\$h" != "themes/\$theme/theme" ]]; then
+				cp -r \$h \$frontend
+			fi
+		fi
+	done
+	for i in content/*/*; do
 		if [[ -e "\$i" ]]; then
-		source \$i
-		source themes/default/theme
-		makeContent > \$frontend/\$(basename \$i).html
+			source \$i
+			source themes/\$theme/theme
+			if [[ "\$(basename \$i)" = "home" ]]; then
+				makeContent > \$frontend/index.html
+			else
+				makeContent > \$frontend/\$(basename \$i).html
+			fi
 		fi
 	done
 	_TOKEN_

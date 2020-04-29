@@ -10,7 +10,7 @@ cat <<- _ECE_
 <h1>$title</h1>
 <nav>
 <ul>
-$(for j in content/*; do echo "<li>$(basename $j)</li>"; done)
+$(for j in content/*/*; do echo "<li>$(basename $j)</li>"; done)
 </ul>
 </nav>
 </header>
