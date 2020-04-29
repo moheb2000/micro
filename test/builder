@@ -30,3 +30,11 @@ makeContent > $frontend/$(basename $i).html
 fi
 fi
 done
+
+
+# Add plugins in codes here
+for l in plugins/*; do
+if [[ -e "$l" ]]; then
+source "$l"
+fi
+done
