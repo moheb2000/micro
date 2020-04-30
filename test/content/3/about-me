@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>micro</title>
-</head>
-<body>
-<header>
-<h1>micro</h1>
-<nav>
-<ul>
-<li>home</li>
-<li>docs</li>
-<li>about-me</li>
-</ul>
-</nav>
-</header>
-<div>
-
+content='
 <h1>first header</h1>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi nullam vehicula ipsum a arcu cursus. Iaculis eu non diam phasellus vestibulum lorem sed. Turpis nunc eget lorem dolor sed viverra. Donec et odio pellentesque diam volutpat commodo sed. Justo eget magna fermentum iaculis eu. Sed sed risus pretium quam vulputate dignissim suspendisse. Et malesuada fames ac turpis egestas maecenas pharetra. Consequat nisl vel pretium lectus quam id leo in vitae. Justo eget magna fermentum iaculis eu non diam. In massa tempor nec feugiat nisl pretium fusce. Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus. In ante metus dictum at tempor commodo ullamcorper a lacus. In dictum non consectetur a erat nam at. Nunc sed blandit libero volutpat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque. Ac orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. A cras semper auctor neque vitae tempus quam pellentesque.</p>
-
-</div>
-<footer>
-</footer>
-</body>
-</html>
+'

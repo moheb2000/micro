@@ -81,10 +81,10 @@ makeVariables > core/variables
 makeThemeContent () {
 	cat <<- _TOKEN_
 		# Copy your theme content except theme file in building directory
-		for h in themes/\$theme/*; do
+		for h in themes/"\$theme"/*; do
 			if [[ -e "\$h" ]]; then
 				if [[ "\$h" != "themes/\$theme/theme" ]]; then
-					cp -r \$h \$frontend
+					cp -r "\$h" "\$frontend"
 				fi
 			fi
 		done
@@ -98,13 +98,13 @@ makeSitePages () {
 		# Make your site pages
 		for i in content/*/*; do
 			if [[ -e "\$i" ]]; then
-				source \$i
-				source themes/\$theme/theme
+				source "\$i"
+				source themes/"\$theme"/theme
 				# creat index.html from home file in contents
-				if [[ "\$(basename \$i)" = "home" ]]; then
-					makeContent > \$frontend/index.html
+				if [[ \$(basename "\$i") = "home" ]]; then
+					makeContent > "\$frontend"/index.html
 				else
-					makeContent > \$frontend/\$(basename \$i).html
+					makeContent > "\$frontend"/\$(basename "\$i").html
 				fi
 			fi
 		done
@@ -117,7 +117,7 @@ makeMyImagesCore () {
 	cat <<- _TOKEN_
 		# Add myimages directory to building directory
 		if [[ -e myimages ]]; then
-			cp -r myimages \$frontend
+			cp -r myimages "\$frontend"
 		fi
 	_TOKEN_
 }

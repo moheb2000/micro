@@ -1,13 +1,13 @@
 # Make your site pages
 for i in content/*/*; do
 if [[ -e "$i" ]]; then
-source $i
-source themes/$theme/theme
+source "$i"
+source themes/"$theme"/theme
 # creat index.html from home file in contents
-if [[ "$(basename $i)" = "home" ]]; then
-makeContent > $frontend/index.html
+if [[ $(basename "$i") = "home" ]]; then
+makeContent > "$frontend"/index.html
 else
-makeContent > $frontend/$(basename $i).html
+makeContent > "$frontend"/$(basename "$i").html
 fi
 fi
 done

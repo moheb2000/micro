@@ -1,4 +1,4 @@
 # Add myimages directory to building directory
 if [[ -e myimages ]]; then
-cp -r myimages $frontend
+cp -r myimages "$frontend"
 fi

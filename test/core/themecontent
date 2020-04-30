@@ -1,8 +1,8 @@
 # Copy your theme content except theme file in building directory
-for h in themes/$theme/*; do
+for h in themes/"$theme"/*; do
 if [[ -e "$h" ]]; then
 if [[ "$h" != "themes/$theme/theme" ]]; then
-cp -r $h $frontend
+cp -r "$h" "$frontend"
 fi
 fi
 done
