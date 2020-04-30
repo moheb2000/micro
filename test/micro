@@ -26,7 +26,7 @@ fi
 
 
 # Create necessary directories
-mkdir themes content core themes/default themes/default/css themes/default/js plugins
+mkdir themes content core themes/default themes/default/css themes/default/js plugins myimages
 
 
 # This function creates theme file for default theme
@@ -99,6 +99,12 @@ makeBuilder () {
 			fi
 		fi
 	done
+
+
+	# Add myimages directory to building directory
+	if [[ -e myimages ]]; then
+		cp -r myimages \$frontend
+	fi
 
 
 	# Add plugins in codes here

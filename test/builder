@@ -32,6 +32,12 @@ fi
 done
 
 
+# Add myimages directory to building directory
+if [[ -e myimages ]]; then
+cp -r myimages $frontend
+fi
+
+
 # Add plugins in codes here
 for l in plugins/*; do
 if [[ -e "$l" ]]; then
