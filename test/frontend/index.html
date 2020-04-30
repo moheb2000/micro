@@ -1,26 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>micro</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex" />
+  <title>micro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="styles/highlightjs-github.css" type="text/css" />
 </head>
 <body>
-<header>
-<h1>micro</h1>
-<nav>
-<ul>
-<li>home</li>
-<li>docs</li>
-<li>about-me</li>
-</ul>
-</nav>
-</header>
-<div>
 
+<aside class="main-nav">
+<nav>
+  <ul>
+      <li class=menuitem><a href=index.html>home</li></a>
+<li class=menuitem><a href=docs.html>docs</li></a>
+  </ul>
+</nav>
+</aside>
+<main class="main-content">
+  <article class="article">
+    
 <h1>first header</h1>
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi nullam vehicula ipsum a arcu cursus. Iaculis eu non diam phasellus vestibulum lorem sed. Turpis nunc eget lorem dolor sed viverra. Donec et odio pellentesque diam volutpat commodo sed. Justo eget magna fermentum iaculis eu. Sed sed risus pretium quam vulputate dignissim suspendisse. Et malesuada fames ac turpis egestas maecenas pharetra. Consequat nisl vel pretium lectus quam id leo in vitae. Justo eget magna fermentum iaculis eu non diam. In massa tempor nec feugiat nisl pretium fusce. Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus. In ante metus dictum at tempor commodo ullamcorper a lacus. In dictum non consectetur a erat nam at. Nunc sed blandit libero volutpat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque. Ac orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. A cras semper auctor neque vitae tempus quam pellentesque.</p>
 
-</div>
-<footer>
-</footer>
+  </article>
+</main>
+<nav class="page-toc">
+  <ul id="page-toc-container">
+
+  </ul>
+</nav>
+
+<script src="scripts/highlight.js"></script>
+<script src="scripts/mousetrap.min.js"></script>
+<script src="scripts/clipboard.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+
+  document.querySelectorAll('.menuitem a').forEach(function(el) {
+    if (el.getAttribute('data-shortcut').length > 0) {
+      Mousetrap.bind(el.getAttribute('data-shortcut'), function() {
+        location.assign(el.getAttribute('href'));
+      });
+    }
+  });
+
+  /**
+   * Generate page table of contents
+   *
+   * Get all H2 elements and render them in a list
+  **/
+  function generatePageTOC() {
+    var tocContainer = document.getElementById('page-toc-container');
+
+    document.querySelectorAll('.article h2').forEach(function(el, index) {
+      // Insert a marker since anchor links breaks with css position sticky
+      // sticky headers upwards are stacked at the top of the viewport
+      // and therefore cannot be jumped to since they are already visible
+      // Instead inject a hidden element to use as a scroll marker
+      el.insertAdjacentHTML('beforebegin', '<i id="page-toc-'+index+'" class="page-toc-scroll-marker">TOC marker</i>');
+
+      var newTocNavItem = document.createElement('li');
+      var newTocNavItemLink = document.createElement('a');
+      var newTocNavItemText = document.createTextNode(el.textContent);
+
+      newTocNavItemLink.setAttribute('href', '#page-toc-' + index);
+      newTocNavItemLink.appendChild(newTocNavItemText);
+      newTocNavItem.appendChild(newTocNavItemLink);
+      tocContainer.appendChild(newTocNavItem);
+    });
+  }
+  generatePageTOC();
+
+  /**
+   * Copy to clipboard
+   *
+   * Powered by https://clipboardjs.com
+  **/
+
+  new ClipboardJS('.copy-to-clipboard-btn');
+
+  // Attach id attribute to all pre > code elements and append a button
+  document.querySelectorAll('pre code').forEach(function(el, index) {
+    el.setAttribute('id', 'code-block-' + index);
+  });
+
+  // Add copy-to-clipboard buttons. Begin by wrapping all pre elements in a div...
+  document.querySelectorAll('pre').forEach(function(el, index) {
+
+    // Create the wrapper div and apply classes on it
+    var wrapper = document.createElement('div');
+    wrapper.classList.add('code-block-container');
+
+    // Place the wrapper div before the pre element
+    el.parentNode.insertBefore(wrapper, el);
+
+    // Move the pre element inside the wrapper div
+    wrapper.appendChild(el);
+  });
+</script>
+
 </body>
 </html>

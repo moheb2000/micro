@@ -44,11 +44,12 @@ makeTheme () {
 				<h1>\$title</h1>
 				<nav>
 					<ul>
-						\$(for j in content/*/*; do echo "<li>\$(basename \$j)</li>"; done)
+						\$(for j in content/*/*; do source "\$j"; echo "<li>\$topic</li>"; done)
 					</ul>
 				</nav>
 			</header>
 			<div>
+				<h1>\$topic</h1>
 				\$content
 			</div>
 			<footer>
@@ -100,12 +101,7 @@ makeSitePages () {
 			if [[ -e "\$i" ]]; then
 				source "\$i"
 				source themes/"\$theme"/theme
-				# creat index.html from home file in contents
-				if [[ \$(basename "\$i") = "home" ]]; then
-					makeContent > "\$frontend"/index.html
-				else
-					makeContent > "\$frontend"/\$(basename "\$i").html
-				fi
+				makeContent > "\$frontend"/\$(basename "\$i").html
 			fi
 		done
 	_TOKEN_
