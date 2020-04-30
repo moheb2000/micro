@@ -64,6 +64,79 @@ makeTheme () {
 makeTheme > themes/default/theme
 
 
+# Create core contents
+
+# Create variables file
+makeVariables () {
+	cat <<- _TOKEN_
+		# Define variables for configuration
+		title="$title" # This is your site title
+		frontend="$frontend" # This is your building directory
+		theme="default" # This is your theme name in themes directory
+	_TOKEN_
+}
+makeVariables > core/variables
+
+# Create themecontent
+makeThemeContent () {
+	cat <<- _TOKEN_
+		# Copy your theme content except theme file in building directory
+		for h in themes/\$theme/*; do
+			if [[ -e "\$h" ]]; then
+				if [[ "\$h" != "themes/\$theme/theme" ]]; then
+					cp -r \$h \$frontend
+				fi
+			fi
+		done
+	_TOKEN_
+}
+makeThemeContent >  core/themecontent
+
+# Create sitepages
+makeSitePages () {
+	cat <<- _TOKEN_
+		# Make your site pages
+		for i in content/*/*; do
+			if [[ -e "\$i" ]]; then
+				source \$i
+				source themes/\$theme/theme
+				# creat index.html from home file in contents
+				if [[ "\$(basename \$i)" = "home" ]]; then
+					makeContent > \$frontend/index.html
+				else
+					makeContent > \$frontend/\$(basename \$i).html
+				fi
+			fi
+		done
+	_TOKEN_
+}
+makeSitePages > core/sitepages
+
+# Creates myimagescore file
+makeMyImagesCore () {
+	cat <<- _TOKEN_
+		# Add myimages directory to building directory
+		if [[ -e myimages ]]; then
+			cp -r myimages \$frontend
+		fi
+	_TOKEN_
+}
+makeMyImagesCore > core/myimagescore
+
+# Create pluginscore file
+makePluginsCore () {
+	cat <<- _TOKEN_
+		# Add plugins in codes here
+		for l in plugins/*; do
+			if [[ -e "\$l" ]]; then
+				source "\$l"
+			fi
+		done
+	_TOKEN_
+}
+makePluginsCore > core/pluginscore
+
+
 # Creates builder shell script
 makeBuilder () {
 	cat <<- _TOKEN_
@@ -71,48 +144,23 @@ makeBuilder () {
 
 
 	# Define variables for configuration
-	title="$title" # This is your site title
-	frontend="$frontend" # This is your building directory
-	theme="default" # This is your theme name in themes directory
-
-
-	# Copy your theme content except theme file in building directory
-	for h in themes/\$theme/*; do
-		if [[ -e "\$h" ]]; then
-			if [[ "\$h" != "themes/\$theme/theme" ]]; then
-				cp -r \$h \$frontend
-			fi
-		fi
-	done
-
-
-	# Make your site pages
-	for i in content/*/*; do
-		if [[ -e "\$i" ]]; then
-			source \$i
-			source themes/\$theme/theme
-			# creat index.html from home file in contents
-			if [[ "\$(basename \$i)" = "home" ]]; then
-				makeContent > \$frontend/index.html
-			else
-				makeContent > \$frontend/\$(basename \$i).html
-			fi
-		fi
-	done
-
-
-	# Add myimages directory to building directory
-	if [[ -e myimages ]]; then
-		cp -r myimages \$frontend
-	fi
+	source core/variables
 
 
 	# Add plugins in codes here
-	for l in plugins/*; do
-		if [[ -e "\$l" ]]; then
-			source "\$l"
-		fi
-	done
+	source core/pluginscore
+
+
+	# Copy your theme content except theme file in building directory
+	source core/themecontent
+
+
+	# Make your site pages
+	source core/sitepages
+
+
+	# Add myimages directory to building directory
+	source core/myimagescore
 	_TOKEN_
 }
 

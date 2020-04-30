@@ -1,0 +1,6 @@
+# Add plugins in codes here
+for l in plugins/*; do
+if [[ -e "$l" ]]; then
+source "$l"
+fi
+done
