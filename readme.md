@@ -25,3 +25,5 @@ To build your site run below bash script:
 ./builder
 ```
 This script removes all files in building directory and adds new site files in it.
+
+for more information, documentation and see DEMO: <a href="https://moheb2000.github.io/micro/index.html">CLICK HERE</a>
