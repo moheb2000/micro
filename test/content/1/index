@@ -1,5 +1,8 @@
 topic='home'
 content='
-<h1>first header</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nulla facilisi nullam vehicula ipsum a arcu cursus. Iaculis eu non diam phasellus vestibulum lorem sed. Turpis nunc eget lorem dolor sed viverra. Donec et odio pellentesque diam volutpat commodo sed. Justo eget magna fermentum iaculis eu. Sed sed risus pretium quam vulputate dignissim suspendisse. Et malesuada fames ac turpis egestas maecenas pharetra. Consequat nisl vel pretium lectus quam id leo in vitae. Justo eget magna fermentum iaculis eu non diam. In massa tempor nec feugiat nisl pretium fusce. Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus. In ante metus dictum at tempor commodo ullamcorper a lacus. In dictum non consectetur a erat nam at. Nunc sed blandit libero volutpat. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque. Ac orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. A cras semper auctor neque vitae tempus quam pellentesque.</p>
+<h1>micro</h1>
+<h2>Welcome to micro</h2>
+<p>"Micro" is a simple static site generator that is written in shell programming language. It has a long way upon its face to become a good and complete site generator but I thank you because of your choice. I will be glad if you tell me my script problems and bugs and give me your suggestions about "micro". It is my first serious script in bash and I thank you again for your ideas that give to me.</p>
+<p>You can download my script from github. <a href="https://github.com/moheb2000/micro">Just click here</a></p>
+<p>And for reading docs you can <a href="docs.html">click here.</a></p>
 '

@@ -9,6 +9,10 @@ source core/variables
 source core/pluginscore
 
 
+# Delete frontend content
+source core/deletefrontend
+
+
 # Copy your theme content except theme file in building directory
 source core/themecontent
 
