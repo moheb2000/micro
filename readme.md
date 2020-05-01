@@ -1,5 +1,6 @@
 # micro
 ## Welcome to micro
+<img src="screenshots/screenshot1.png" />
 "Micro" is a simple static site generator that is written in shell programming language. It has a long way upon its face to become a good and complete site generator but I thank you because of your choice. I will be glad if you tell me my script problems and bugs and give me your suggestions about "micro". It is my first serious script in bash and I thank you again for your ideas that give to me.
 ## Installaton
 For use of "micro" you should turn it executable. For that download "micro" from github and open bash on that directory. Then type this command in bash:
@@ -27,3 +28,7 @@ To build your site run below bash script:
 This script removes all files in building directory and adds new site files in it.
 
 for more information, documentation and see DEMO: <a href="https://moheb2000.github.io/micro/index.html">CLICK HERE</a>
+<br />
+<br />
+<br />
+<img src="screenshots/screenshot2.png" />
