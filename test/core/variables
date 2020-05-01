@@ -1,4 +1,4 @@
 # Define variables for configuration
 title="micro" # This is your site title
-frontend="/var/www/html" # This is your building directory
+frontend="../docs" # This is your building directory
 theme="default" # This is your theme name in themes directory

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex" />
+  <title>micro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="styles/highlightjs-github.css" type="text/css" />
+</head>
+<body>
+
+<aside class="main-nav">
+<nav>
+  <ul>
+      <li class=menuitem><a href=index.html>home</li></a>
+<li class=menuitem><a href=docs.html>docs</li></a>
+  </ul>
+</nav>
+</aside>
+<main class="main-content">
+  <article class="article">
+    
+<h1>Documentation</h1>
+<h2>Installaton</h2>
+<p>For use of "micro" you should turn it executable. For that download "micro" from github and open bash on that directory. Then type this command in bash:</p>
+<code>sudo chmod 755 micro</code>
+<p>After that copy this file in /home/bin directory. If it does not exist create it. Then open bash and enter in a directory that you want to design and develop your site. use this command:</p>
+<code>cd my-site-directory</code>
+<p>Then write and run this command:</p>
+<code>micro</code>
+<p>In the first step, the script wants you to enter your site title. In the next step, you should enter your site-building directory. If you do not enter a directory it is create your site in frontend directory by default. Wish your site function and select a directory (this directory must exist).</p>
+<code>Please enter your site title -> <br />Please enter build address(If you are not sure just click enter) -> </code>
+<h3>Apache2</h3>
+<p>If you use apache2 web server for your site enter below directory for your building address:</p>
+<code>/var/www/html</code>
+<p>And if you use it locally on your system, your site will be available in localhost.</p>
+<h3>Github</h3>
+<p>If you want to publish your site in github it is enough to enter your site-building directory nothing. So your site will build in frontend directory. Add it to git and push this directory to your site respiratory in github.</p>
+<h2>Configuration</h2>
+<p>For any reason, if you want to change site title or building address, open variables file in core directory and modify title and frontend variables.</p>
+<h2>site pages and articles</h2>
+<p>Your site pages and articles place in content directory. For making a new page, create a directory with numeral name in content and add a file (for example, index) in it. The number of directory determines the topic page location in the navigation bar and the name of the file determines the page address in the site. (for example, if the name of the file is index the address is index.html) <span style="color: red;">Do not use space in file names.</span></p>
+<p>For content use HTML as markdown language. Your text must have no single quote.</p>
+<p>Save your image in myimages directory and use myimages/your-image-name in content markdown.</p>
+<h2>theme</h2>
+<p>Your theme folders and codes locate in themes directory. To use a theme copy its folder in themes directory and go to core/variables and change the value of theme variable to your theme directory name (like default). For creating a new theme for "micro" follow these steps:</p>
+<ul>
+<li>Create a folder for your theme in themes directory</li>
+<li>Make a file called theme in it</li>
+<li>Write your code in this file</li>
+<li>Add other theme files and directories to your folder</li>
+<li>Change the value of theme variable in core/variables</li>
+</ul>
+<h2>plugin</h2>
+<p>"Micro" plugins write in bash script and import to builder file. To add a plugin, copy your plugin file in plugins directory</p>
+<h2>Building site</h2>
+<p>The last step is building your site in your wishing directory (by default, frontend directory). To do that open command line in your site directory and run builder shell script:</p>
+<code>./builder</code>
+<p>This script removes all files in building directory and adds new site files in it.</p>
+<P>Excellent. Your site is ready. Every time you change your site contents you must run builder script to build your site.</p>
+
+  </article>
+</main>
+<nav class="page-toc">
+  <ul id="page-toc-container">
+
+  </ul>
+</nav>
+
+<script src="scripts/highlight.js"></script>
+<script src="scripts/mousetrap.min.js"></script>
+<script src="scripts/clipboard.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+
+  document.querySelectorAll('.menuitem a').forEach(function(el) {
+    if (el.getAttribute('data-shortcut').length > 0) {
+      Mousetrap.bind(el.getAttribute('data-shortcut'), function() {
+        location.assign(el.getAttribute('href'));
+      });
+    }
+  });
+
+  /**
+   * Generate page table of contents
+   *
+   * Get all H2 elements and render them in a list
+  **/
+  function generatePageTOC() {
+    var tocContainer = document.getElementById('page-toc-container');
+
+    document.querySelectorAll('.article h2').forEach(function(el, index) {
+      // Insert a marker since anchor links breaks with css position sticky
+      // sticky headers upwards are stacked at the top of the viewport
+      // and therefore cannot be jumped to since they are already visible
+      // Instead inject a hidden element to use as a scroll marker
+      el.insertAdjacentHTML('beforebegin', '<i id="page-toc-'+index+'" class="page-toc-scroll-marker">TOC marker</i>');
+
+      var newTocNavItem = document.createElement('li');
+      var newTocNavItemLink = document.createElement('a');
+      var newTocNavItemText = document.createTextNode(el.textContent);
+
+      newTocNavItemLink.setAttribute('href', '#page-toc-' + index);
+      newTocNavItemLink.appendChild(newTocNavItemText);
+      newTocNavItem.appendChild(newTocNavItemLink);
+      tocContainer.appendChild(newTocNavItem);
+    });
+  }
+  generatePageTOC();
+
+  /**
+   * Copy to clipboard
+   *
+   * Powered by https://clipboardjs.com
+  **/
+
+  new ClipboardJS('.copy-to-clipboard-btn');
+
+  // Attach id attribute to all pre > code elements and append a button
+  document.querySelectorAll('pre code').forEach(function(el, index) {
+    el.setAttribute('id', 'code-block-' + index);
+  });
+
+  // Add copy-to-clipboard buttons. Begin by wrapping all pre elements in a div...
+  document.querySelectorAll('pre').forEach(function(el, index) {
+
+    // Create the wrapper div and apply classes on it
+    var wrapper = document.createElement('div');
+    wrapper.classList.add('code-block-container');
+
+    // Place the wrapper div before the pre element
+    el.parentNode.insertBefore(wrapper, el);
+
+    // Move the pre element inside the wrapper div
+    wrapper.appendChild(el);
+  });
+</script>
+
+</body>
+</html>
